@@ -92,16 +92,28 @@
       <div class="chart" id="rank"></div>
     </div>
     <div class="card">
+      <div class="head">
+        <div>
+          <h2>Ranking de treinos</h2>
+          <p class="note">Quem mais treinou desde o início. Clique numa barra para filtrar.</p>
+        </div>
+        <div class="seg" aria-hidden="true" style="visibility:hidden">
+          <button type="button" tabindex="-1">% do peso</button>
+          <button type="button" tabindex="-1">Quilos</button>
+        </div>
+      </div>
+      <div class="chart" id="treinos"></div>
+    </div>
+    <div class="card">
       <h2>Caminho até a meta</h2>
       <p class="note">100% é chegar ao peso meta de cada pessoa.</p>
       <div class="chart" id="meta"></div>
     </div>
-  </section>
-
-  <section class="card">
-    <h2>Perda a cada pesagem</h2>
-    <p class="note">% do peso inicial perdido em cada registro. Passe o mouse (ou toque) num ponto para ver o detalhe.</p>
-    <div class="chart" id="evo" style="min-height:280px"></div>
+    <div class="card">
+      <h2>Perda a cada pesagem</h2>
+      <p class="note">% do peso inicial perdido em cada registro. Passe o mouse (ou toque) num ponto para ver o detalhe.</p>
+      <div class="chart" id="evo" style="min-height:280px"></div>
+    </div>
   </section>
 
   <section class="card">
@@ -124,14 +136,15 @@
   </section>
 
   <p class="defs">
+    Medalhas: 🥇🥈🥉 para os três primeiros de cada ranking (no placar, pelo % perdido); empates dividem a mesma posição.<br>
     % perdido = (peso inicial − último peso) ÷ peso inicial. Até a meta = quilos perdidos ÷ (peso inicial − peso meta).
-    Cada pessoa conta pelo último registro. Dados da planilha Quilos_mortais, de 11/10/2026.
+    Cada pessoa conta pelo último registro. Treinos = soma dos treinos realizados desde a pesagem anterior, informados a cada registro. Dados da planilha Quilos_mortais, de 17/10/2026.
   </p>
 </div>
 
 <script>
 (function () {
-  var D = {"pessoas": [{"nome": "Bruno", "kg": 2.9, "pct": 2.9851, "prog": 42.6471, "treinos": 11, "pesagens": 2, "ultima": "2026-10-09"}, {"nome": "Ju", "kg": 1.7, "pct": 2.1197, "prog": 30.303, "treinos": 4, "pesagens": 1, "ultima": "2026-10-05"}, {"nome": "Vanessa", "kg": 0.55, "pct": 0.9298, "prog": 13.285, "treinos": 3, "pesagens": 1, "ultima": "2026-09-29"}, {"nome": "Rafa", "kg": 0.7, "pct": 0.791, "prog": 11.3086, "treinos": 10, "pesagens": 1, "ultima": "2026-10-05"}, {"nome": "Jeni", "kg": 0.45, "pct": 0.6667, "prog": 9.5339, "treinos": 6, "pesagens": 1, "ultima": "2026-10-05"}, {"nome": "Matheus", "kg": 0.5, "pct": 0.6098, "prog": 8.7108, "treinos": 3, "pesagens": 1, "ultima": "2026-10-02"}], "pesagens": [{"nome": "Bruno", "data": "2026-10-02", "pct": 2.0072}, {"nome": "Bruno", "data": "2026-10-09", "pct": 2.9851}, {"nome": "Jeni", "data": "2026-10-05", "pct": 0.6667}, {"nome": "Ju", "data": "2026-10-05", "pct": 2.1197}, {"nome": "Rafa", "data": "2026-10-05", "pct": 0.791}, {"nome": "Vanessa", "data": "2026-09-29", "pct": 0.9298}, {"nome": "Matheus", "data": "2026-10-02", "pct": 0.6098}], "resumo": {"kg_total": 6.8, "pct_grupo": 1.4331, "lider": "Bruno", "lider_pct": 2.9851, "treinos": 37, "pesagens": 7, "ultima": "2026-10-09"}};
+  var D = {"pessoas": [{"nome": "Bruno", "kg": 2.9, "pct": 2.9851, "prog": 42.6471, "treinos": 11, "pesagens": 2, "ultima": "2026-10-09"}, {"nome": "Jeni", "kg": 1.65, "pct": 2.4444, "prog": 34.9576, "treinos": 11, "pesagens": 2, "ultima": "2026-10-12"}, {"nome": "Ju", "kg": 1.4, "pct": 1.7456, "prog": 24.9554, "treinos": 8, "pesagens": 2, "ultima": "2026-10-10"}, {"nome": "Rafa", "kg": 1.2, "pct": 1.3559, "prog": 19.3861, "treinos": 27, "pesagens": 2, "ultima": "2026-10-16"}, {"nome": "Vanessa", "kg": 0.55, "pct": 0.9298, "prog": 13.285, "treinos": 3, "pesagens": 1, "ultima": "2026-09-29"}, {"nome": "Matheus", "kg": 0.5, "pct": 0.6098, "prog": 8.7108, "treinos": 9, "pesagens": 2, "ultima": "2026-10-16"}], "pesagens": [{"nome": "Bruno", "data": "2026-10-02", "pct": 2.0072}, {"nome": "Bruno", "data": "2026-10-09", "pct": 2.9851}, {"nome": "Jeni", "data": "2026-10-05", "pct": 0.6667}, {"nome": "Jeni", "data": "2026-10-12", "pct": 2.4444}, {"nome": "Ju", "data": "2026-10-05", "pct": 2.1197}, {"nome": "Ju", "data": "2026-10-10", "pct": 1.7456}, {"nome": "Rafa", "data": "2026-10-05", "pct": 0.791}, {"nome": "Rafa", "data": "2026-10-16", "pct": 1.3559}, {"nome": "Vanessa", "data": "2026-09-29", "pct": 0.9298}, {"nome": "Matheus", "data": "2026-10-02", "pct": 0.6098}, {"nome": "Matheus", "data": "2026-10-16", "pct": 0.6098}], "resumo": {"kg_total": 8.2, "pct_grupo": 1.7281, "lider": "Bruno", "lider_pct": 2.9851, "treinos": 69, "pesagens": 11, "ultima": "2026-10-16"}};
   var NS = 'http://www.w3.org/2000/svg';
   var root = document.getElementById('root');
   var tip = document.getElementById('tip');
@@ -185,12 +198,23 @@
     return [['Perdidos', kg(p.kg)], ['% do peso', pc(p.pct)], ['Até a meta', pc(p.prog)], ['Treinos', f0.format(p.treinos)]];
   }
 
+  function medals(rows, key) {
+    var r2 = function (v) { return Math.round(v * 100) / 100; }, out = {};
+    rows.forEach(function (a) {
+      var rank = 1 + rows.filter(function (b) { return r2(b[key]) > r2(a[key]); }).length;
+      out[a.nome] = rank === 1 ? '\uD83E\uDD47' : rank === 2 ? '\uD83E\uDD48' : rank === 3 ? '\uD83E\uDD49' : '';
+    });
+    return out;
+  }
+
   function hbars(box, rows, o) {
     box.textContent = '';
     var W = box.clientWidth || 600, step = 34, H = rows.length * step + 8;
     var svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': o.label }, box);
     var vals = rows.map(function (r) { return r[o.key]; });
-    var ml = measure(svg, rows.map(function (r) { return r.nome; }), 'name') + 12;
+    var md = medals(rows, o.key);
+    var lab = function (r) { return md[r.nome] ? md[r.nome] + ' ' + r.nome : r.nome; };
+    var ml = measure(svg, rows.map(lab), 'name') + 12;
     var mr = measure(svg, rows.map(function (r) { return o.fmt(r[o.key]); }), 'val') + 14;
     var lo = o.domain ? o.domain[0] : Math.min(0, Math.min.apply(null, vals));
     var hi = o.domain ? o.domain[1] : Math.max(Math.max.apply(null, vals), 0.0001);
@@ -198,7 +222,7 @@
     rows.forEach(function (r, i) {
       var cy = i * step + step / 2 + 4;
       var g = el('g', { opacity: sel && sel !== r.nome ? 0.3 : 1, style: 'cursor:pointer' }, svg);
-      el('text', { 'class': 'name', x: ml - 8, y: cy, dy: '0.35em', 'text-anchor': 'end' }, g, r.nome);
+      el('text', { 'class': 'name', x: ml - 8, y: cy, dy: '0.35em', 'text-anchor': 'end' }, g, lab(r));
       if (o.track) el('rect', { x: x(lo), y: cy - 7, width: x(hi) - x(lo), height: 14, rx: 4, fill: 'var(--grid)' }, g);
       var v = Math.max(lo, Math.min(hi, r[o.key]));
       var x0 = x(Math.min(0, v)), x1 = x(Math.max(0, v));
@@ -271,6 +295,7 @@
 
   function table() {
     var tb = document.querySelector('#tbl tbody'); tb.textContent = '';
+    var tmd = medals(D.pessoas, 'pct');
     document.querySelectorAll('#tbl th').forEach(function (th) {
       th.setAttribute('aria-sort', th.dataset.k === sortKey ? (sortDir > 0 ? 'ascending' : 'descending') : 'none');
     });
@@ -280,13 +305,13 @@
     }).forEach(function (p) {
       var tr = document.createElement('tr'); tr.dataset.key = p.nome;
       if (sel === p.nome) tr.setAttribute('aria-selected', 'true');
-      [p.nome, kg(p.kg), pc(p.pct), null, f0.format(p.treinos), f0.format(p.pesagens), fdate(p.ultima)].forEach(function (c, i) {
+      [(tmd[p.nome] ? tmd[p.nome] + ' ' : '') + p.nome, kg(p.kg), pc(p.pct), null, f0.format(p.treinos), f0.format(p.pesagens), fdate(p.ultima)].forEach(function (c, i) {
         var td = document.createElement('td');
         if (i === 3) {
           var w = document.createElement('span'); w.className = 'pbar';
           var bar = document.createElement('i'), fill = document.createElement('b');
           fill.style.width = Math.max(0, Math.min(100, p.prog)) + '%';
-          bar.appendChild(fill); w.appendChild(bar); w.appendChild(document.createTextNode(pc(p.prog))); td.appendChild(w);
+          bar.appendChild(fill); var pt = document.createElement('span'); pt.style.cssText = 'display:inline-block;min-width:4.6em;text-align:right'; pt.textContent = pc(p.prog); w.appendChild(bar); w.appendChild(pt); td.appendChild(w);
         } else td.textContent = c;
         tr.appendChild(td);
       });
@@ -299,13 +324,13 @@
     var r = D.resumo;
     document.getElementById('take').innerHTML = '';
     var take = document.getElementById('take');
-    [[r.lider, true], [' lidera com ', false], [pc(r.lider_pct), true], [' de perda; juntos, o grupo já perdeu ', false], [kg(r.kg_total), true], ['. Última pesagem registrada em ', false], [fdate(r.ultima), true], ['.', false]].forEach(function (s) {
+    [[r.lider, true], [' lidera com ', false], [pc(r.lider_pct), true], [' de perda; juntos, o grupo já perdeu ', false], [kg(r.kg_total), true], ['. Última pesagem registrada em ', false], [fdate(r.ultima), true], [/\.$/.test(fdate(r.ultima)) ? '' : '.', false]].forEach(function (s) {
       if (s[1]) { var b = document.createElement('b'); b.textContent = s[0]; take.appendChild(b); } else take.appendChild(document.createTextNode(s[0]));
     });
     var cards = document.getElementById('cards'); cards.textContent = '';
     [['Quilos perdidos', 'Soma do grupo desde o peso inicial', kg(r.kg_total)],
      ['Perda média', 'Total perdido ÷ soma dos pesos iniciais', pc(r.pct_grupo)],
-     ['Treinos', 'Soma dos treinos informados nas semanas', f0.format(r.treinos)],
+     ['Treinos', 'Soma dos treinos informados a cada pesagem', f0.format(r.treinos)],
      ['Pesagens', 'Registros enviados no formulário', f0.format(r.pesagens)]].forEach(function (c) {
       var d = document.createElement('div'); d.className = 'card';
       var h = document.createElement('h2'); h.textContent = c[0];
@@ -322,6 +347,7 @@
     document.querySelectorAll('.seg button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.m === metric ? 'true' : 'false'); });
     var rows = D.pessoas.slice(), key = metric === 'pct' ? 'pct' : 'kg';
     hbars(document.getElementById('rank'), rows.slice().sort(function (a, b) { return b[key] - a[key]; }), { key: key, fmt: metric === 'pct' ? pc : kg, label: 'Ranking de perda de peso por participante' });
+    hbars(document.getElementById('treinos'), rows.slice().sort(function (a, b) { return b.treinos - a.treinos; }), { key: 'treinos', fmt: function (v) { return f0.format(v); }, label: 'Ranking de treinos por participante' });
     hbars(document.getElementById('meta'), rows.slice().sort(function (a, b) { return b.prog - a.prog; }), { key: 'prog', fmt: pc, domain: [0, 100], track: true, label: 'Progresso até a meta por participante' });
     evo(document.getElementById('evo'));
     table();
